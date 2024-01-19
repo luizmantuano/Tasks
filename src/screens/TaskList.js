@@ -1,12 +1,16 @@
 import { View, Text, ImageBackground, StyleSheet } from 'react-native';
 import React from 'react';
 import { useFonts } from 'expo-font';
-import todayImage from '../../assets/imgs/today.jpg';
-import moment from 'moment';
-import 'moment/locale/pt-br';
-import commonStyles from '../commonStyles';
 
-const TaskList = () => {
+import todayImage from '../../assets/imgs/today.jpg';
+
+import moment from 'moment';
+import 'moment/locale/pt-br'; //utilizado para manipulação e formatação de datas e horas.
+
+import commonStyles from '../commonStyles';
+import Task from '../components/Task';
+
+const TaskList = (props) => {
   const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
 
   const [fontsLoaded] = useFonts({
@@ -26,9 +30,8 @@ const TaskList = () => {
         </View>
       </ImageBackground>
       <View style={styles.taskList}>
-        <Text>Tarefa #01</Text>
-        <Text>Tarefa #02</Text>
-        <Text>Tarefa #03</Text>
+        <Task desc="Comprar Livro" estimateAt={new Date()} doneAt={new Date()}/>
+        <Task desc="Ler Livro" estimateAt={new Date()} doneAt={null}/>
       </View>
     </View>
   );
