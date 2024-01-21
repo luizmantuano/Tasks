@@ -1,55 +1,49 @@
-import { View, Text, ImageBackground, StyleSheet } from 'react-native';
-import React from 'react';
-import { useFonts } from 'expo-font';
+import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import React, { Component } from 'react';
 
-import todayImage from '../../assets/imgs/today.jpg';
+import todayimage from '../../assets/imgs/today.jpg';
 
 import moment from 'moment';
-import 'moment/locale/pt-br'; //utilizado para manipulação e formatação de datas e horas.
+import 'moment/locale/pt-br';
 
 import commonStyles from '../commonStyles';
 import Task from '../components/Task';
 
-const TaskList = (props) => {
-  const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
+export default class TaskList extends Component {
+  render() {
+    const today = moment().locale('pt-br').format('ddd, D [de] MMMM');
 
-  const [fontsLoaded] = useFonts({
-    Lato: require('../../assets/fonts/Lato.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return null; // Retornar algo válido enquanto as fontes não são carregadas
-  }
-
-  return (
-    <View style={styles.container}>
-      <ImageBackground source={todayImage} style={styles.background}>
-        <View style={styles.titleBar}>
-          <Text style={styles.title}>Hoje</Text>
-          <Text style={styles.subtitle}>{today}</Text>
+    return (
+      <View style={styles.container}>
+        <ImageBackground source={todayimage} style={styles.Background}>
+          <View style={styles.titleBar}>
+            <Text style={styles.title}>Hoje</Text>
+            <Text style={styles.subTitle}>{today}</Text>
+          </View>
+        </ImageBackground>
+        <View style={styles.TaskList}>
+          <Task desc='Comprar Livro' estimateAt={new Date()} doneAt={new Date()} />
+          <Task desc='Ler Livro' estimateAt={new Date()} doneAt={null} />
         </View>
-      </ImageBackground>
-      <View style={styles.taskList}>
-        <Task desc="Comprar Livro" estimateAt={new Date()} doneAt={new Date()}/>
-        <Task desc="Ler Livro" estimateAt={new Date()} doneAt={null}/>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  background: {
+  Background: {
     flex: 3,
   },
-  taskList: {
+  TaskList: {
     flex: 7,
   },
   titleBar: {
     flex: 1,
     justifyContent: 'flex-end',
+    paddingHorizontal: 20,
   },
   title: {
     fontFamily: commonStyles.fontFamily,
@@ -58,7 +52,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     marginBottom: 20,
   },
-  subtitle: {
+  subTitle: {
     fontFamily: commonStyles.fontFamily,
     color: commonStyles.colors.secondary,
     fontSize: 20,
@@ -66,5 +60,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-
-export default TaskList;
