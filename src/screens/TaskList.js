@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import React, { Component } from 'react';
 
-import todayimage from '../../assets/imgs/today.jpg';
+import todayimage from '../assets/imgs/today.jpg';
 
 import moment from 'moment';
 import 'moment/locale/pt-br';
